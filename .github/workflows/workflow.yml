@@ -44,6 +44,7 @@ jobs:
           
       - name: Revision flake8
         run: |
+          source env/bin/activate
           cd lambda1
           flake8 .
           cd ..
