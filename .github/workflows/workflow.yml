@@ -58,14 +58,15 @@ jobs:
           cd ..
           cd lambda2
           pytest
-      - name: despliegue lambda1 aws
-        run: |
-          source env/bin/activate
-          cd lambda1
-          zappa update dev
       - name: despliegue lambda2 aws
         run: |
           source env/bin/activate
           cd lambda2
           pip install zappa
-          zappa update dev
+          zappa update dev
+      - name: despliegue lambda1 aws
+        run: |
+          source env/bin/activate
+          cd lambda1
+          zappa update dev
+      
