@@ -65,4 +65,4 @@ jobs:
           zappa update dev
           cd ..
           cd lambda2
-          zappa update dev
+          zappa --version
