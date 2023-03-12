@@ -52,6 +52,7 @@ jobs:
           flake8 .
       - name: pruebas unitarias pytest
         run: |
+          source env/bin/activate
           cd lambda1
           pytest
           cd ..
@@ -59,6 +60,7 @@ jobs:
           pytest
       - name: despliegue aws
         run: |
+          source env/bin/activate
           cd lambda1
           zappa update dev
           cd ..
