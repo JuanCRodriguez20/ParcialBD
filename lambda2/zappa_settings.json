@@ -1,0 +1,23 @@
+{
+    "dev": {
+        "app_function": "lambda2_data.lambda_handler",
+        "keep_warm": false,
+        "role_name": "LabRole",
+        "aws_region": "us-east-1",
+        "manage_roles": false,
+        "apigateway_enabled": false,
+        "project_name": "lambda2",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-553s5kpxy"
+        
+        "events": [{
+            "function": "lambda2_data.lambda_handler",
+            "event_source": {
+                  "arn":  "arn:aws:s3:::landing-casas-09",
+                  "events": [
+                    "s3:ObjectCreated:*"
+                  ]
+               }
+            }],
+    }
+}

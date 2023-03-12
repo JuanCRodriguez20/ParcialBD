@@ -1,0 +1,17 @@
+{
+    "dev": {
+        "app_function": "lambda1_html.lambda_handler",
+        "keep_warm": false,
+        "role_name": "LabRole",
+        "aws_region": "us-east-1",
+        "manage_roles": false,
+        "apigateway_enabled": false,
+        "project_name": "lambda1",
+        "runtime": "python3.9",
+        "s3_bucket": "zappa-h4lqjcm7g",
+        "events": [{
+            "function": "lambda1_html.lambda_handler",
+            "expression": "cron(0 14 ? * MON *)"
+        }]
+    }
+}
