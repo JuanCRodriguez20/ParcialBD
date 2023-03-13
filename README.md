@@ -31,44 +31,50 @@ Este proyecto tiene como objetivo realizar scraping de la página web de <a href
 
 ## Instalación
 
-- Clonar el repositorio
-**En linux
-- Instalar lo necesario para crear un ambiente de python: sudo apt install virtualenv
-- Instalar python3.8 y luego ejecutar el siguiente comando: virtualenv -p python3.8 env
-- Instalar las dependencias con pip: pip install -r requirements.txt
-- Configurar las credenciales de AWS en la terminal: aws configure (Puede configurarlas en su repositorio de git)
-- Configurar el archivo zappa_settings.json con los valores necesarios, teniendo en cuenta desencadenadores y demás.
-- El paso anterior se realiza con 'zappa init' y editando el zappa_settings.json generado.
+- `git clone https://github.com/JuanCRodriguez20/ParcialBD.git; cd ParcialBD`
+- Instalar lo necesario para crear un ambiente de python: En Ubuntu: `sudo apt install virtualenv` 
+- Instalar python3.8 y luego ejecutar el siguiente comando: `virtualenv -p python3.8 env`
+- Activar el entorno virtual recién creado: `source env/bin/activate`
+- Instalar las dependencias con pip: `pip install -r requirements.txt`
+- Configurar las credenciales de AWS en la terminal: `aws configure` (Puede configurarlas en su repositorio de git)
+- Configurar el archivo `zappa_settings.json` con los valores necesarios, teniendo en cuenta desencadenadores y demás.
+- El paso anterior se realiza con `zappa init` y editando el `zappa_settings.json` generado.
 
 ## Uso
 
-### Lambda para descargar página (lambda1 - lambda1_html.py)
+### Lambda para descargar página (lambda1 - `lambda1_html.py`)
 
 Para crear la función lambda que descarga la página web, ejecutar los siguientes comandos:
 
-- cd lambda1
-- zappa deploy
+```
+cd lambda1
+zappa deploy
+```
 
-La función se ejecutará todos los lunes a las 9am. El resultado (yyyy-mm-dd.html) se guardará en el bucket de S3 especificado en el archivo zappa_settings.json.
+La función se ejecutará todos los lunes a las 9am. El resultado (`yyyy-mm-dd.html`) se guardará en el bucket de S3 especificado en el archivo `zappa_settings.json`.
 
 ### Lambda para procesamiento de información
 
-Cuando la página web se haya descargado y almacenado en el bucket de S3, se ejecutará automáticamente la segunda función lambda que extraerá la información y la guardará en un archivo CSV en el bucket de S3 especificado en el archivo zappa_settings.json.
+Cuando la página web se haya descargado y almacenado en el bucket de S3, se ejecutará automáticamente la segunda función lambda que extraerá la información y la guardará en un archivo CSV en el bucket de S3 especificado en el archivo `zappa_settings.json`.
 
 Para crear la función lambda que procesa la información, ejecutar el siguiente comando:
 
-- cd lambda2
-- zappa deploy
+```
+cd lambda2
+zappa deploy
+```
 
 ### Pruebas unitarias
 
 Para ejecutar las pruebas unitarias, se pueden utilizar los siguientes comandos:
 
-- cd lambda1
-- pytest
-- cd ..
-- cd lambda2
-- pytest
+```
+cd lambda1
+pytest
+cd ..
+cd lambda2
+pytest
+```
 
 ## Despliegue continuo con GitHub Actions
 
@@ -78,6 +84,6 @@ Se ha configurado un pipeline de despliegue continuo utilizando GitHub Actions. 
 - Ejecución de pruebas unitarias
 - Despliegue automático en AWS mediante Zappa
 
-Para utilizar este pipeline, se deben configurar las variables de entorno AWS_ACCESS_KEY_ID y AWS_SECRET_ACCESS_KEY en el repositorio de GitHub. También puede necesitar AWS_SESSION_TOKEN en caso de tener un lab temporal de AWS.
+Para utilizar este pipeline, se deben configurar las variables de entorno `AWS_ACCESS_KEY_ID` y `AWS_SECRET_ACCESS_KEY` en el repositorio de GitHub. También puede necesitar `AWS_SESSION_TOKEN` en caso de tener un lab temporal de AWS.
 
-*En el repositorio encuentra '**.github/workflows**', el cual contiene el pipeline mencionado.
+*En el repositorio encuentra `.github/workflows/workflow.yml`, el cual contiene el pipeline mencionado.
